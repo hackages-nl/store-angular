@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Book } from '../types/book';
 import { BookService } from 'src/services/books.service';
+import { merge } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +12,7 @@ import { BookService } from 'src/services/books.service';
 export class AppComponent implements OnInit {
   title = 'Bookstore by ';
   books: Book[] = [];
+  searchEventEmitter: EventEmitter<string> = new EventEmitter();
 
   // const bs = new BookService()
   constructor(private bs: BookService) {}
@@ -20,12 +23,12 @@ export class AppComponent implements OnInit {
       this.title += userInfo.name;
     });
 
-    this.bs.getBooks().subscribe((books) => {
-      this.books = books;
-    });
-  }
+    const searchBooks = this.searchEventEmitter.pipe(
+      switchMap((title) => this.bs.search(title)),
+      tap(console.log)
+    );
+    const getBooks = this.bs.getBooks();
 
-  search(value: string) {
-    this.books = this.bs.search(value);
+    merge(getBooks, searchBooks).subscribe((books) => (this.books = books));
   }
 }

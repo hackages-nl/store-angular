@@ -5,9 +5,10 @@ import { BookService } from 'src/services/books.service';
 import { HttpClientModule } from '@angular/common/http';
 import { InMemoryDataService } from 'src/services/api.service';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InputBookComponent } from './input-book/input-book.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, InputBookComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
