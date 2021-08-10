@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Book } from '../types/book';
-import { books as mockBooks } from '../mocks/books';
 import { BookService } from 'src/services/books.service';
 
 @Component({
@@ -8,17 +7,23 @@ import { BookService } from 'src/services/books.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
-  title = 'Bookstore by Nalys';
+export class AppComponent implements OnInit {
+  title = 'Bookstore by ';
+  books: Book[] = [];
 
   // const bs = new BookService()
-  // this.bs = bs;
-  constructor(private bs: BookService) {
-    ///
-  }
+  constructor(private bs: BookService) {}
 
-  // Use mock data
-  books: Book[] = mockBooks;
+  ngOnInit() {
+    // 5€
+    this.bs.getUser().subscribe((userInfo: any) => {
+      this.title += userInfo.name;
+    });
+
+    this.bs.getBooks().subscribe((books) => {
+      this.books = books;
+    });
+  }
 
   search(value: string) {
     this.books = this.bs.search(value);
