@@ -1,5 +1,5 @@
 <!--Header component-->
-<h1>{ title }</h1>
+<h1>{{title}}</h1>
 
 <hr />
 <br />
@@ -16,14 +16,14 @@
 <!--End Search component-->
 
 <!--Books container-->
-<h3>We have books.length book(s) in our library</h3>
+<h3>We have {{books.length}} book(s) in our library</h3>
 <hr />
 <br />
 
 <div class="container">
-  <a class="item" ngFor="let book in books">
+  <a class="item" *ngFor="let book of books">
     <div class="module hero">
-      <h4>book.title</h4>
+      <h4>{{book.title}}</h4>
     </div>
   </a>
 </div>
