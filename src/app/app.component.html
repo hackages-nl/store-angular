@@ -8,7 +8,7 @@
 <!--Search component-->
 <div id="search-component">
   <h4>Search in your library</h4>
-  <input id="search-box" />
+  <input id="search-box" #searchInput (input)="search(searchInput.value)" />
 </div>
 
 <hr />
