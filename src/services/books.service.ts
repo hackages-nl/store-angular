@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { delay, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Book } from 'src/types/book';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class BookService {
@@ -36,5 +37,16 @@ export class BookService {
         });
       })
     );
+  }
+
+  // Gets a book by its id from our mock server
+  getBook(id: number): Observable<Book> {
+    throw new Error('Oops. Not yet implemented...');
+  }
+
+  // Update a book and re-fetch the list of books.
+  update({ id, title }: { id: number; title: string }): Observable<Book[]> {
+    const url = `${this.booksUrl}/${id}`;
+    throw new Error('Oops. Not yet implemented...');
   }
 }
