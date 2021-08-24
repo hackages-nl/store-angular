@@ -1,8 +1,5 @@
 <!--Header component-->
-<h1>{{title + (userInfo$ | async)?.name}}</h1>
-
-<hr />
-<br />
+<app-header [title]="title + (userInfo$ | async)?.name"></app-header>
 <!--End Header component-->
 
 <!--Search component-->
@@ -10,17 +7,5 @@
 <!--End Search component-->
 
 <!--Books container-->
-<ng-container *ngIf="books$ | async as books">
-  <h3>We have {{ books?.length }} book(s) in our library</h3>
-  <hr />
-  <br />
-
-  <div class="container">
-    <a class="item" *ngFor="let book of books">
-      <div class="module hero">
-        <h4>{{book.title}}</h4>
-      </div>
-    </a>
-  </div>
-</ng-container>
+<app-books [books]="(books$ | async) || []"></app-books>
 <!--End Books container-->
