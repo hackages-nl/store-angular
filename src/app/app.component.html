@@ -2,10 +2,4 @@
 <app-header [title]="title + (userInfo$ | async)?.name"></app-header>
 <!--End Header component-->
 
-<!--Search component-->
-<app-input-book [searchEvent]="searchEventEmitter"></app-input-book>
-<!--End Search component-->
-
-<!--Books container-->
-<app-books [books]="(books$ | async) || []"></app-books>
-<!--End Books container-->
+<router-outlet></router-outlet>
