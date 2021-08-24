@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Book } from '../types/book';
 import { BookService } from 'src/services/books.service';
-import { merge } from 'rxjs';
+import { merge, Observable, of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 
 @Component({
@@ -11,17 +11,15 @@ import { switchMap, tap } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   title = 'Bookstore by ';
-  books: Book[] = [];
+  books$: Observable<Book[]> = of([]);
   searchEventEmitter: EventEmitter<string> = new EventEmitter();
+  userInfo$: Observable<any> = of({});
 
   // const bs = new BookService()
   constructor(private bs: BookService) {}
 
   ngOnInit() {
-    // 5€
-    this.bs.getUser().subscribe((userInfo: any) => {
-      this.title += userInfo.name;
-    });
+    this.userInfo$ = this.bs.getUser();
 
     const searchBooks = this.searchEventEmitter.pipe(
       switchMap((title) => this.bs.search(title)),
@@ -29,6 +27,6 @@ export class AppComponent implements OnInit {
     );
     const getBooks = this.bs.getBooks();
 
-    merge(getBooks, searchBooks).subscribe((books) => (this.books = books));
+    this.books$ = merge(getBooks, searchBooks);
   }
 }

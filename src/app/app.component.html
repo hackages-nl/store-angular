@@ -1,5 +1,5 @@
 <!--Header component-->
-<h1>{{title}}</h1>
+<h1>{{title + (userInfo$ | async)?.name}}</h1>
 
 <hr />
 <br />
@@ -10,15 +10,17 @@
 <!--End Search component-->
 
 <!--Books container-->
-<h3>We have {{books.length}} book(s) in our library</h3>
-<hr />
-<br />
+<ng-container *ngIf="books$ | async as books">
+  <h3>We have {{ books?.length }} book(s) in our library</h3>
+  <hr />
+  <br />
 
-<div class="container">
-  <a class="item" *ngFor="let book of books">
-    <div class="module hero">
-      <h4>{{book.title}}</h4>
-    </div>
-  </a>
-</div>
+  <div class="container">
+    <a class="item" *ngFor="let book of books">
+      <div class="module hero">
+        <h4>{{book.title}}</h4>
+      </div>
+    </a>
+  </div>
+</ng-container>
 <!--End Books container-->
