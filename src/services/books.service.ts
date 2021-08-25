@@ -14,16 +14,7 @@ export class BookService {
   }
 
   getBooks() {
-    return this.http.get<Book[]>(this.booksUrl).pipe(
-      map((books) => {
-        return books.map((book) => {
-          return {
-            title: book.title,
-            category: book.category,
-          };
-        });
-      })
-    );
+    return this.http.get<Book[]>(this.booksUrl);
   }
   search(title: string) {
     return this.http.get<Book[]>(this.searchUrl + title).pipe(
@@ -41,6 +32,7 @@ export class BookService {
 
   // Gets a book by its id from our mock server
   getBook(id: number): Observable<Book> {
+    const url = `${this.booksUrl}/${id}`;
     throw new Error('Oops. Not yet implemented...');
   }
 

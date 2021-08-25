@@ -3,7 +3,7 @@
 <br />
 
 <div class="container">
-  <a class="item" *ngFor="let book of books">
+  <a [routerLink]="['', 'books', book.id]" class="item" *ngFor="let book of books">
     <div class="module hero">
       <h4>{{book.title}}</h4>
     </div>
