@@ -1,4 +1,9 @@
-<div>
+
+<div *ngIf="error">
+  <h1>Hey, we have an issue with our API. Try again later</h1>
+  <button (click)="goBack()">Back</button>
+</div>
+<div *ngIf="book$ | async as book">
   <h2>{{ book.title }} details!</h2>
   <div><label>Id: </label>{{ book.id }}</div>
   <div>
