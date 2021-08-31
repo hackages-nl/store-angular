@@ -1,0 +1,7 @@
+<!--Search component-->
+<app-input-book [searchEvent]="searchEventEmitter"></app-input-book>
+<!--End Search component-->
+
+<!--Books container-->
+<app-books [books]="(books$ | async) || []"></app-books>
+<!--End Books container-->

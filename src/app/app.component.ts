@@ -1,19 +1,20 @@
-import { Component } from '@angular/core';
-import { Book } from '../types/book';
-import { books as mockBooks } from '../mocks/books';
+import { Component, OnInit } from '@angular/core';
+import { BookService } from 'src/services/books.service';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
-  title = 'Bookstore by Nalys';
+export class AppComponent implements OnInit {
+  title = 'Bookstore by ';
+  userInfo$: Observable<any> = of({});
 
-  // Use mock data
-  books: Book[] = mockBooks;
+  // const bs = new BookService()
+  constructor(private bs: BookService) {}
 
-  search() {
-    // Implement the search function
+  ngOnInit() {
+    this.userInfo$ = this.bs.getUser();
   }
 }
